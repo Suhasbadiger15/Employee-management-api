@@ -1,53 +1,119 @@
 # Employee Management REST API
 
-A Spring Boot REST API for managing employee information.
+A Spring Boot REST API for managing employee information using MySQL, Spring Data JPA, and Hibernate.
 
 ## Technologies Used
 
 - Java
 - Spring Boot
 - Spring Web
+- Spring Data JPA
+- Hibernate
+- MySQL
 - Maven
+- Lombok
 - REST API
-- In-memory storage
+- Postman
+
+## Project Overview
+
+This project is an Employee Management REST API developed using Spring Boot.
+
+The application provides RESTful APIs to perform CRUD operations on employee data and uses MySQL for persistent data storage.
+
+Spring Data JPA is used for repository and database operations, while Hibernate is used as the JPA implementation for mapping Java objects to database tables.
+
+The project also demonstrates Spring Data JPA derived query methods, searching, filtering, sorting, and pagination.
 
 ## Features
 
-- Create an employee
+### CRUD Operations
+
+- Create a new employee
 - Get all employees
 - Get employee by ID
-- Find employees by name
 - Update employee details
 - Delete an employee
-- Global exception handling
-- DTOs for request and response
-- Mapper for converting between entities and DTOs
 
-## API Endpoints
+### Filtering
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/employees` | Create employee |
-| GET | `/employees` | Get all employees |
-| GET | `/employees/{id}` | Get employee by ID |
-| PUT | `/employees/{id}` | Update employee |
-| DELETE | `/employees/{id}` | Delete employee |
-| GET | `/employees/name/{name}` | Find employees by name |
+- Find employees by department
+- Find employees whose salary is greater than a specified value
+- Find employees by department and salary greater than a specified value
 
-## How to Run
+### Searching
 
-1. Clone the repository.
-2. Open the project in IntelliJ IDEA.
-3. Run `EmployeemanagementApplication.java`.
-4. The application starts on the default Spring Boot port.
+The application supports searching employees by name using:
+
+- Name starting with a specific value
+- Name ending with a specific value
+- Name containing a specific value
+
+### Sorting
+
+Employees can be sorted using:
+
+- Ascending order
+- Descending order
+
+### Pagination
+
+The application supports pagination using Spring Data JPA's `Pageable`.
+
+This allows employee records to be retrieved page by page instead of retrieving all records at once.
+
+### Exception Handling
+
+- Custom `EmployeeNotFoundException`
+- Global exception handling using `@ControllerAdvice`
+- Structured error responses
+
+### DTOs
+
+The project uses separate DTOs for handling API requests and responses:
+
+- `EmployeeRequest`
+- `EmployeeResponse`
+
+This keeps the API layer separate from the database entity.
+
+### Entity Mapping
+
+An `EmployeeMapper` is used to convert between:
+
+- Employee entity
+- EmployeeRequest DTO
+- EmployeeResponse DTO
+
+## Spring Data JPA Derived Queries
+
+The project uses Spring Data JPA derived query methods to perform database operations without manually writing SQL queries for every operation.
 
 ## Project Structure
 
 ```text
-controller
-service
-repository
-model
-dto
-exception
-Mapper
+src/main/java/com/store/employeemanagement/
+
+├── controller
+│   └── EmployeeController.java
+│
+├── service
+│   └── EmployeeService.java
+│
+├── repository
+│   └── EmployeeRepository.java
+│
+├── model
+│   └── Employee.java
+│
+├── dto
+│   ├── EmployeeRequest.java
+│   └── EmployeeResponse.java
+│
+├── Mapper
+│   └── EmployeeMapper.java
+│
+└── exception
+    ├── EmployeeNotFoundException.java
+    ├── ErrorResponse.java
+    └── GlobalExceptionHandler.java
